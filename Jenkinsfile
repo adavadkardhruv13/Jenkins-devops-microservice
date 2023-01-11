@@ -9,8 +9,8 @@
 // Declerative
 
 pipeline{
-	agent any
-	//agent {docker {image 'node:19.4'}}
+	//agent any
+	agent {docker {image 'maven:3.8.7'}}
     stages{
 		stage ('Build') {
 			steps {
