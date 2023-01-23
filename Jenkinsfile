@@ -9,15 +9,15 @@
 // Declerative
 
 pipeline{
-	//agent any
-	agent {docker {image 'maven:3.8.7'}}
+	agent any
+	//agent {docker {image 'maven:3.8.7'}}
 	environment {
-		dockerHome = tool 'myDocker'
+		//dockerHome = tool 'myDocker'
 		mavenHome = tool 'myMaven'
 		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
     stages{
-		stage ('Build') {
+		stage ('checkout') {
 			steps {
 				sh 'mvn --version'
 				sh 'docker version'
@@ -31,14 +31,19 @@ pipeline{
 
 			}
 		}
+		stage("complie") {
+			steps {
+				sh "mvn clean complie"
+			}
+		}
 		stage ('Test') {
 			steps {
-				echo 'Tested'
+				echo 'mvn test'
 			}
 		}
 		stage ('Integration Test'){
 			steps {
-				echo 'integrated tested'
+				echo 'mvn failsafe:integration-test failsafe:verify'
 			}
 		}
 	}
