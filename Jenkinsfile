@@ -18,7 +18,7 @@ pipeline{
 		PATH = "$mavenHome/bin:$PATH"
 	}
     stages{
-		stage ('checkout') {
+		stage ('Checkout') {
 			steps {
 				sh 'mvn --version'
 				//sh 'docker version'
@@ -32,19 +32,19 @@ pipeline{
 
 			}
 		}
-		stage("complie") {
+		stage("Complie") {
 			steps {
 				sh "mvn clean complie"
 			}
 		}
 		stage ('Test') {
 			steps {
-				echo 'mvn test'
+				sh 'mvn test'
 			}
 		}
 		stage ('Integration Test'){
 			steps {
-				echo 'mvn failsafe:integration-test failsafe:verify'
+				sh 'mvn failsafe:integration-test failsafe:verify'
 			}
 		}
 	}
